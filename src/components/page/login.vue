@@ -62,6 +62,17 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.$axios.post('http://localhost:8080/api/loginCheck', {
+            username: this.loginForm.username,
+            password: this.loginForm.pass
+          })
+            .then(function(res){
+              console.log(res);
+            })
+            .catch(function(err){
+              console.log(err);
+            })
+
           const ws_username = localStorage.getItem('ws_username');
 
           if (ws_username){
