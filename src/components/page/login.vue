@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui'
 export default {
   name: 'login',
   data () {
@@ -59,29 +60,40 @@ export default {
     }
   },
   methods: {
+
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$axios.post('http://localhost:8080/api/loginCheck', {
-            username: this.loginForm.username,
-            password: this.loginForm.pass
-          })
-            .then(function(res){
-              console.log(res);
+          var qs = require('qs')
+          var user = this.loginForm.username
+          var pass = this.loginForm.pass
+          var router = this.$router
+          this.$axios.post('http://localhost:8080/api/loginCheck', qs.stringify({
+            username: user,
+            password: pass
+          }))
+            .then(function (res) {
+              console.log(res)
+              console.log(res.data['stateCode'])
+              if (res.data['stateCode'] == 2) {
+                Message.success('登录成功')
+                const wsUsername = localStorage.getItem('wsUsername')
+                if (wsUsername) {
+                  localStorage.removeItem('wsUsername')
+                }
+                localStorage.setItem('wsUsername', user)
+                router.push('/main')
+              } else if (res.data['stateCode'] == 1) {
+                Message.error('密码错误')
+              } else if (res.data['stateCode'] == 0) {
+                Message.warning('用户名不存在')
+              }
             })
-            .catch(function(err){
-              console.log(err);
+            .catch(function (err) {
+              console.log(err)
             })
-
-          const ws_username = localStorage.getItem('ws_username');
-
-          if (ws_username){
-            localStorage.removeItem('ws_username')
-          }
-          localStorage.setItem('ws_username', this.loginForm.username)
-          this.$router.push('/main')
         } else {
-          console.log('error submit!!')
+          this.$message.error('请检查输入!')
           return false
         }
       })
@@ -89,6 +101,7 @@ export default {
     resetForm (formName) {
       this.$refs[formName].resetFields()
     }
+
   }
 }
 </script>

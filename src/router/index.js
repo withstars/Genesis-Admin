@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/page/login'
 import header from '@/components/common/header'
 import sidebar from '@/components/common/sidebar'
+import topic from '@/components/page/topic'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/sidebar',
       name: 'sidebar',
       component: sidebar
+    },
+    {
+      path: '/topic',
+      name: 'topic',
+      component: topic
     }
   ]
 })
