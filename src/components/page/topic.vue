@@ -1,11 +1,28 @@
 <template>
 
-  <div> <el-button :plain="true" @click="showMessage">成功</el-button>
+  <div>
     <el-table
       :data="tableData"
       style="width: 100%">
       <el-table-column
-        label="日期"
+        label="id"
+        width="180">
+        <template slot-scope="scope">
+          <i class="el-icon-time"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="标题"
+        width="180">
+        <template slot-scope="scope">
+          <i class="el-icon-info"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="发表日期"
         width="180">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
@@ -13,16 +30,27 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="姓名"
+        label="点击量"
         width="180">
         <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>姓名: {{ scope.row.name }}</p>
-            <p>住址: {{ scope.row.address }}</p>
-            <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.name }}</el-tag>
-            </div>
-          </el-popover>
+          <i class="el-icon-view"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="评论数"
+        width="180">
+        <template slot-scope="scope">
+          <i class="el-icon-edit-outline"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="标签"
+        width="180">
+        <template slot-scope="scope">
+          <i class="el-icon-star-off"></i>
+          <span style="margin-left: 10px">{{ scope.row.date }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作">
